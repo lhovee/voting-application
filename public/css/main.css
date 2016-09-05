@@ -132,7 +132,7 @@ img {
 	font-weight: 500;
 }
 
-.btn-newPoll {	/* Styling for buttons */
+#btn-newPoll {	/* Styling for buttons */
 	margin: 0 8px;
 	color: white;
 	background-color: black;
@@ -215,3 +215,16 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+/***** polls.js styling ****/
+.centar {
+	margin: 0px auto;
+	text-align: center;
+}
+
+.btn-newOption {
+width: 150px;
+color: #FF630D;
+background-color: #000;
+}
+

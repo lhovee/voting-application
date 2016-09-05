@@ -22,27 +22,20 @@
 			<p class="clementine-text">Voting Application</p>
 		</div>
 	
-		<div class="container">
-			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
-			<br />
-			<div class="btn-container">
-				<button type="submit" class="btn btn-add">CLICK ME!</button>
-				<button class="btn btn-delete">RESET</button>
-			</div>
-		</div>
 		<br />
-		<div class="container"> 
-		<div class="btn-container"> 
-		<button type="submit" class="btn btn-newPoll">Create a new poll</button> 
-		</div> 
-		</div>
- 
-		<canvas id="myChart" width="400" height="400"></canvas>
+		<a href="/public/polls.html">
+		<div class="btn-container">
+		
+					<div class="btn" id="btn-newPoll">
+						<p>Create a new poll</p>
+					</div>
+					</div>
+					</a>
+		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
-		<script type="text/javascript" src="common/main.js"></script>
 		<script type="text/javascript" src="controllers/clickController.client.js"></script>
 		<script type="text/javascript" src="controllers/profileController.client.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
 	</body>
 
 </html>
