@@ -24,5 +24,18 @@ var ajaxFunctions = {
 
       xmlhttp.open(method, url, true);
       xmlhttp.send();
+   },
+   ajaxPost: function ajaxPost(url, data) {
+      var xmlhttp = new XMLHttpRequest();
+      
+      // xmlhttp.onreadystatechange = function () {
+      //    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      //       callback(xmlhttp.response);
+      //    }
+      // };
+      
+      xmlhttp.open("POST", url, true);
+      xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      xmlhttp.send(JSON.stringify(data));
    }
 };

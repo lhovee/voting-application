@@ -4,9 +4,30 @@
 
 	<head>
 		<title>Polls</title>
-		
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-	    <p>polls here please</p>
+		<a href="/public/index.html">
+					<div class="btn">
+						<p>Return</p>
+					</div>
+				</a>
+		<div class = "centar">
+	    <h2>New Poll</h2>
+	    <h4>Name your Poll</h4>
+	    <input id="pollName" type="text" name="poll name">
+	    <br />
+	    <h4>Options</h4>
+	    <input id="option1" type="text" style="margin:0px auto; display:block;" />
+	    <input id="option2" type="text" style="margin:0px auto; display:block;" />
+	    <br />
+	    <button class="btn btn-newOption">Add a new option</button>
+	    <button class="btn btn-submit">Submit</button>
+	    </div>
+	    
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+	    <script type="text/javascript" src="common/ajax-functions.js"></script>
+	    <script type="text/javascript" src="controllers/pollController.client.js"></script>
+	    
 	</body>
 	</html>

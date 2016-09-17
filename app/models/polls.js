@@ -1,12 +1,50 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var Polls = new Schema({
- pollName: String,
- userId: mongoose.Schema.Types.ObjectId,
- options: [{optionName: String, votes: Number}]
+var pollSchema = mongoose.Schema({
+	// Each entry in the database has one github identifier
+	github: {
+		id: String,
+		displayName: String,
+		username: String,
+		publicRepos: Number
+	},
+	
+	// Each entry also has a single poll
+	// If a user adds more than one poll, there will be one entry for each poll
+	// You can find all polls belonging to a user by checking the github.id on each poll
+	poll: {			
+		name: String,
+		options: [{		// Variable number of options
+			name: String,
+			nrVotes: Number
+		}]
+	}
 });
+pollSchema.methods.addPollOption = function (newOptName) {
+	// Use "var myPoll = mongoose.findOne()" to select the correct poll based on
+	// github ID and poll name.
+	
+	// Call myPoll.addPollOption() to add a new option to the poll
+	
+	// Consider adding a check in here to see if the option name already exists
+	var nrOptions = this.poll.options.count;
+	this.poll.options[nrOptions].name = newOptName;
+	this.poll.options[nrOptions].nrVotes = 0;
+	
+	// Currently always returns true
+	// Change later to return false if we fail to add the new option
+	return true;
+	
+	// "this" refers to the current schema instance (probably)
+};
 
-module.exports = mongoose.model('polls', Polls);
+var Poll = mongoose.model('Poll', pollSchema);
+
+// var newPoll = new Poll();
+// newPoll.poll.pollName = "Cool";
+// newPoll.addPollOption("First Option");
+// newPoll.addPollOption("Second Option");
+// newPoll.addPollOption("First Option"); // This should fail because the name already exists
+
+module.exports = Poll;
