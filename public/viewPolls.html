@@ -4,12 +4,26 @@
 
 	<head>
 		<title>View Polls</title>
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-	    <div>Existing Polls</div>
+		<a href="/public/index.html">
+					<div class="btn">
+						<p>Return</p>
+					</div>
+				</a>
+	    <div class="centar">
+	    	<div>
+	    	<h2>Existing Polls</h2>
+		
+		</div>
+	    <br></br>
 	    
-	    <div id="target">Test Poll Name</div>
-	    <script  type="text/javascript">
+	    <div id="target">
+	    	<h2>Test Poll Name</h2>
+	    </div>
+	    </div>
+	    <script  type="text/javascript" src="controllers/pollController.client.js">
 	        // Get the name of a poll from the server using a GET request
 	        // Put that name into the "target" div
 	    </script>

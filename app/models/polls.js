@@ -15,11 +15,25 @@ var pollSchema = mongoose.Schema({
 	// You can find all polls belonging to a user by checking the github.id on each poll
 	poll: {			
 		name: String,
+		option1: {
+			name: String,
+			nrVotes: Number
+		},
+		option2: {
+			name: String,	
+			nrVotes:Number
+		}
+	}
+	
+	/*
+	poll: {			
+		name: String,
 		options: [{		// Variable number of options
 			name: String,
 			nrVotes: Number
 		}]
 	}
+	*/
 });
 pollSchema.methods.addPollOption = function (newOptName) {
 	// Use "var myPoll = mongoose.findOne()" to select the correct poll based on
@@ -39,7 +53,7 @@ pollSchema.methods.addPollOption = function (newOptName) {
 	// "this" refers to the current schema instance (probably)
 };
 
-var Poll = mongoose.model('Poll', pollSchema);
+var poll = mongoose.model('poll', pollSchema);
 
 // var newPoll = new Poll();
 // newPoll.poll.pollName = "Cool";
@@ -47,4 +61,4 @@ var Poll = mongoose.model('Poll', pollSchema);
 // newPoll.addPollOption("Second Option");
 // newPoll.addPollOption("First Option"); // This should fail because the name already exists
 
-module.exports = Poll;
+module.exports = poll;

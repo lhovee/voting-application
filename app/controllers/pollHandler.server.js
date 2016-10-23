@@ -1,6 +1,7 @@
 'use strict';
 
-var Poll = require('../models/polls.js');
+var poll = require('../models/polls.js');
+var github = require('../models/polls.js');
 var mongoose = require('mongoose');
 
 function pollHandler () {
@@ -9,7 +10,7 @@ function pollHandler () {
 		// Use Polls.find(cb) to get the polls that match our Github ID
 		// Return the raw poll data through res.json() so that the client can display it
 		
-		Poll
+		poll
 			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
@@ -24,16 +25,33 @@ function pollHandler () {
 		console.log("Option1: ", req.body.option1);
 		console.log("Option2: ", req.body.option2);
 		
-		var myPoll = new Poll();
-		myPoll.save();
-		
+		/*
+				Users
+			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
+			.exec(function (err, result) {
+					if (err) { throw err; }
+
+					res.json(result.nbrClicks);
+				}
+			);
+		*/
 		
 		// Check to see that this user doesn't have a poll with the same name
+
 		// Create a new Poll() using polls.js
-		// Tell MongoDB to add it to the database using mongoose.save(cb)
-		// Just to make sure it worked, use Poll.find(cb) to make sure it was added
-	};
+		var myPoll = new poll();
+		github.id = req.user.github.id;
+		poll.name = req.body.pollName;
+		poll.option1.name = req.body.option1;
+		poll.option2.name = req.body.option2;
 	
+		// Tell MongoDB to add it to the database using mongoose.save(cb)
+			mongoose.save(myPoll);
+
+		// Just to make sure it worked, use Poll.find(cb) to make sure it was added
+	
+		};
+
 	/* This function logs a vote to an existing poll */
 	this.logVote = function (req, res) {
 		console.log("Logging a vote to poll: ", req.body.pollName);
@@ -49,7 +67,7 @@ function pollHandler () {
 	this.resetPoll = function (req, res) {
 		// This will only reset the first option's vote count
 		// Change it later to reset all options' vote counts
-		Poll
+		poll
 			.findOneAndUpdate({ 'github.id': req.user.github.id, 'poll.name': req.body.pollName }, { 'poll.options[0].nrVotes': 0 })
 			.exec(function (err, result) {
 					if (err) { throw err; }
@@ -58,7 +76,7 @@ function pollHandler () {
 				}
 			);
 	};
-
+	
 }
 
 module.exports = pollHandler;

@@ -215,3 +215,8 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+.centar {
+	text-align: center;
+	display: block;
+}
