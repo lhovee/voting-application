@@ -12,7 +12,7 @@
    
    function updatePolls (data) {
       var pollObj = JSON.parse(data);
-      target.innerHTML = pollObj;
+      target.innerHTML = pollObj.name;
    }
    
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePolls));
@@ -27,7 +27,7 @@
       // Send a POST request with the poll name and each option name
       var test = {pollName: pollNameText, option1: option1Text, option2: option2Text};
       ajaxFunctions.ajaxPost(apiUrl, test);
-      ajaxFunctions.ajaxRequest('GET', apiUrl, updatePolls);
+      ajaxFunctions.ajaxRequest('GET', apiUrl, test);
       
       
       /*

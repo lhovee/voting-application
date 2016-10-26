@@ -11,7 +11,7 @@ function pollHandler () {
 		// Return the raw poll data through res.json() so that the client can display it
 		
 		poll
-			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
+			.find({ 'github.id': req.user.github.id }, { 'poll.name': poll.name} )
 			.exec(function (err, result) {
 				if (err) { throw err; }
 
@@ -21,12 +21,14 @@ function pollHandler () {
 
 	/* This function creates a new poll */
 	this.addPoll = function (req, res) {
+
 		console.log("PollName: ", req.body.pollName);
 		console.log("Option1: ", req.body.option1);
 		console.log("Option2: ", req.body.option2);
 		
 		/*
-				Users
+	this.addClick = function (req, res) {
+		Users
 			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
 			.exec(function (err, result) {
 					if (err) { throw err; }
@@ -34,6 +36,7 @@ function pollHandler () {
 					res.json(result.nbrClicks);
 				}
 			);
+	};
 		*/
 		
 		// Check to see that this user doesn't have a poll with the same name
@@ -41,12 +44,12 @@ function pollHandler () {
 		// Create a new Poll() using polls.js
 		var myPoll = new poll();
 		github.id = req.user.github.id;
-		poll.name = req.body.pollName;
-		poll.option1.name = req.body.option1;
-		poll.option2.name = req.body.option2;
+		myPoll.poll.pollName = req.body.pollName;
+		myPoll.poll.option1.name = req.body.option1;
+		myPoll.poll.option2.name = req.body.option2;
 	
 		// Tell MongoDB to add it to the database using mongoose.save(cb)
-			mongoose.save(myPoll);
+			myPoll.save();
 
 		// Just to make sure it worked, use Poll.find(cb) to make sure it was added
 	
