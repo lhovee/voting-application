@@ -106,10 +106,11 @@ img {
 
 .clementine-text { /* Styling for the Clementine.js text */
 	padding: 0;
-	margin: -25px 0 0 0;
+	margin:25px 0 0 0;
 	font-weight: 500;
 	font-size: 60px;
 	color: #FFA000;
+	text-align: center;
 }
 
 /****** Click Styling ******/
@@ -218,5 +219,5 @@ span {
 
 .centar {
 	text-align: center;
-	display: block;
+	margin: 20px 0 20px 0;
 }

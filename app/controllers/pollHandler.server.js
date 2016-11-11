@@ -15,29 +15,26 @@ function pollHandler () {
 			.exec(function (err, result) {
 				if (err) { throw err; }
 
-				res.json(result.poll);
+				res.json(result.poll.name);
 			});
 	};
 
 	/* This function creates a new poll */
 	this.addPoll = function (req, res) {
+		poll	
+			.findOneAndUpdate({ 'poll.name': req.body.pollName}, { 'poll.option1.name': req.body.option1}, { $inc: { 'poll.opiton1.nrVotes': 1 } }, { 'poll.option2.name': req.body.option2}, { $inc: { 'poll.option2.nrVotes': 1 } })
+			.exec(function (err, result) {
+				if (err) { throw err; }
 
+				res.json(result.poll.name);
+				}
+			);
+	};
+/*		
 		console.log("PollName: ", req.body.pollName);
 		console.log("Option1: ", req.body.option1);
 		console.log("Option2: ", req.body.option2);
 		
-		/*
-	this.addClick = function (req, res) {
-		Users
-			.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-
-					res.json(result.nbrClicks);
-				}
-			);
-	};
-		*/
 		
 		// Check to see that this user doesn't have a poll with the same name
 
@@ -50,10 +47,10 @@ function pollHandler () {
 	
 		// Tell MongoDB to add it to the database using mongoose.save(cb)
 			myPoll.save();
-
+*/
 		// Just to make sure it worked, use Poll.find(cb) to make sure it was added
 	
-		};
+
 
 	/* This function logs a vote to an existing poll */
 	this.logVote = function (req, res) {
@@ -79,7 +76,7 @@ function pollHandler () {
 				}
 			);
 	};
-	
-}
+}	
+
 
 module.exports = pollHandler;
