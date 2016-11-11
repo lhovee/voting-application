@@ -24,16 +24,8 @@ var pollSchema = mongoose.Schema({
 			nrVotes:Number
 		}
 	}
+
 	
-	/*
-	poll: {			
-		name: String,
-		options: [{		// Variable number of options
-			name: String,
-			nrVotes: Number
-		}]
-	}
-	*/
 });
 pollSchema.methods.addPollOption = function (newOptName) {
 	// Use "var myPoll = mongoose.findOne()" to select the correct poll based on
@@ -55,10 +47,17 @@ pollSchema.methods.addPollOption = function (newOptName) {
 
 var poll = mongoose.model('poll', pollSchema);
 
-// var newPoll = new Poll();
-// newPoll.poll.pollName = "Cool";
-// newPoll.addPollOption("First Option");
-// newPoll.addPollOption("Second Option");
-// newPoll.addPollOption("First Option"); // This should fail because the name already exists
-
 module.exports = poll;
+
+
+/*
+
+		poll: {			
+		name: String,
+		options: [{		// Variable number of options
+			name: String,
+			nrVotes: Number
+		}]
+	}
+	
+*/
