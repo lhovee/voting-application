@@ -2,6 +2,8 @@
 /* global ajaxFunctions */
 /* global appUrl */
 var poll = require('../models/polls.js');
+var user = require('../models/users.js');
+var github = require('../models/polls.js');
 
 (function () {
 
@@ -9,6 +11,11 @@ var poll = require('../models/polls.js');
    var submitButton = document.querySelector('.btn-submit');
    var target = document.querySelector('.target');
    var apiUrl = appUrl + '/api/:id/polls';
+   
+   function updatePolls (data) {
+      var pollObject = JSON.parse(data);
+      target.innerHTML = pollObject.name;
+   }
 
          // Read whatever is in the form and create a poll from that
       // Read the poll name and each option name from their text boxes
@@ -21,6 +28,10 @@ var poll = require('../models/polls.js');
       // Send a POST request with the poll name and each option name
       var myPoll = {pollName: pollNameText, option1: option1Text, option2: option2Text};
       ajaxFunctions.ajaxPost(apiUrl, myPoll);
+   // I'm hoping to rewrite the below to replace the post above
+   //   ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
+   //      ajaxFunctions.ajaxRequest('GET', apiUrl, updatePolls);
+   //   });
    
         // Change pages to the newly created poll's page
       var locationObj = appUrl + '/viewPolls';

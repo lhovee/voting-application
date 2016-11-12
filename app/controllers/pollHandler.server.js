@@ -2,6 +2,7 @@
 /*global req */
 var poll = require('../models/polls.js');
 var github = require('../models/polls.js');
+var user = require('../models/users.js');
 var mongoose = require('mongoose');
 
 function pollHandler () {
@@ -11,19 +12,20 @@ function pollHandler () {
 		// Return the raw poll data through res.json() so that the client can display it
 		
 		poll
-			.find({ 'github.id': req.user.github.id }, { 'poll.name': req.pollName} )
+			.find({ 'github.id': req.user.github.id }, { 'poll.name': req.body.pollName} )
 			.exec(function (err, result) {
 				if (err) { throw err; }
 
-				res.json(result.poll);
+				res.json(poll);
 			});
 	};
 
 	/* This function creates a new poll */
 	
 	this.addPoll = function (req, res) {
+		
 				// Create a new Poll() using polls.js
-		var myPoll = new poll();
+		var myPoll = req.body;	
 		github.id = req.user.github.id;
 		myPoll.poll.pollName = req.body.pollName;
 		myPoll.poll.option1.name = req.body.option1;
@@ -34,8 +36,8 @@ function pollHandler () {
 		console.log("Option2: ", req.body.option2);
 		
 		// Tell MongoDB to add it to the database using mongoose.save(cb)
-			myPoll.save();
-		
+		myPoll.save();
+		res.json(myPoll);
 	};	
 		// Check to see that this user doesn't have a poll with the same name
 
@@ -74,22 +76,3 @@ function pollHandler () {
 
 module.exports = pollHandler;
 
-
-/*
-	var search = { 'poll.name': req.body.pollName};
-		poll	
-			.findOneAndUpdate(search, 
-			{ 'poll.name': req.body.pollName}, 
-			{ 'poll.option1.name': req.body.option1}, 
-			{ $inc: { 'poll.opiton1.nrVotes': 1 } }, 
-			{ 'poll.option2.name': req.body.option2}, 
-			{ $inc: { 'poll.option2.nrVotes': 1 } }, 
-			{upsert:true}, 
-			function (err, result) {
-				if (err) { throw err; }
-
-				res.json(result.poll);
-				}
-			);
-	};
-*/
