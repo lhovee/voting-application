@@ -26,7 +26,6 @@ function pollHandler () {
 		
 				// Create a new Poll() using polls.js
 		var myPoll = req.body;	
-		github.id = req.user.github.id;
 		myPoll.poll.pollName = req.body.pollName;
 		myPoll.poll.option1.name = req.body.option1;
 		myPoll.poll.option2.name = req.body.option2;
